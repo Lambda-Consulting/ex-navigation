@@ -57,6 +57,7 @@ type Props = {
   initialItem: string,
   renderHeader: () => React.Element<any>,
   renderNavigationView: () => React.Element<any>,
+  renderSelectedOnly: boolean,
   drawerBackgroundColor: string,
   drawerWidth: 300,
   drawerStyle: any,
@@ -177,6 +178,10 @@ class ExNavigationDrawer extends PureComponent<any, Props, State> {
     const navState = this._getNavigationState();
     const selectedChild = navState.routes[navState.index];
     const isSelected = drawerItem.id === selectedChild.key;
+
+    if (this.props.renderSelectedOnly && !isSelected) {
+      return null;
+    }
 
     return (
       <View
